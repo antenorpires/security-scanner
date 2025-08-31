@@ -8,9 +8,9 @@ router.post("/fast", (req, res) => {
   const target = sanitizeUrl(req.body.target || "");
   runScan(
     target, 
-    `proxychains host -d ${target}`, 
-    `proxychains dig DNSKEY +dnssec ${target}`, 
-    `proxychains nmap -F -Pn -sT --open ${target}`, 
+    `sudo proxychains host -d ${target}`, 
+    `sudo proxychains dig DNSKEY +dnssec ${target}`, 
+    `sudo proxychains nmap -F -Pn -sT --open ${target}`, 
     results => res.json(results)
   );
 });
@@ -19,9 +19,9 @@ router.post("/low", (req, res) => {
   const target = sanitizeUrl(req.body.target || "");
   runScan(
     target, 
-    `proxychains host -d ${target}`, 
-    `proxychains dig DNSKEY +dnssec ${target}`, 
-    `proxychains nmap -F -Pn -sT -A ${target}`, 
+    `sudo proxychains host -d ${target}`, 
+    `sudo proxychains dig DNSKEY +dnssec ${target}`, 
+    `sudo proxychains nmap -F -Pn -sT --open -sV -A -O --script vuln ${target}`, 
     results => res.json(results)
   );
 });

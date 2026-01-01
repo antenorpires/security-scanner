@@ -43,5 +43,4 @@ COPY --from=build /app /app
 
 # Start the server by default, this can be overwritten at runtime
 EXPOSE 8080
-CMD [ "service", "tor", "start", "&&", "npm", "run", "start" ]
-# CMD [ "npm", "run", "start" ]
+CMD ["sh", "-c", "service tor start && npm run start"]

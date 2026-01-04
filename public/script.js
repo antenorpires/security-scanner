@@ -32,8 +32,8 @@ async function scan(mode) {
 
         statsDiv.innerHTML = `
             <div class="section">
-            <h2>${scanIcon} ${scanLabel} – 🛡️ Vulnerabilities</h2>
-            <p><strong>🔓 Ports:</strong> 
+            <h2>${scanIcon} ${scanLabel} – 🔓 Ports</h2>
+            <p> 
                 ${data.otherOpenPorts && data.otherOpenPorts.length > 0 
                 ? data.otherOpenPorts.join(", ") 
                 : "No suspicious ports"}
@@ -51,11 +51,15 @@ async function scan(mode) {
             <pre>${data.host || "—"}</pre>
             </div>
             <div class="section">
+            <h2>${scanIcon} ${scanLabel} – 🔎 Whois</h2>
+            <pre>${data.whois || "—"}</pre>
+            </div>
+            <div class="section">
             <h2>${scanIcon} ${scanLabel} – 📡 Dig</h2>
             <pre>${data.dig || "—"}</pre>
             </div>
             <div class="section">
-            <h2>${scanIcon} ${scanLabel} – 🛰️ Nmap</h2>
+            <h2>${scanIcon} ${scanLabel} – 🛰️ Nmap + 🛡️ Vulnerabilities</h2>
             <pre>${data.nmap || "—"}</pre>
             </div>
         `;

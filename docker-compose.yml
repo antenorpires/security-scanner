@@ -15,6 +15,9 @@ services:
       - 8080:8080
     networks:
       - network
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
 networks:
   network:
     driver: bridge

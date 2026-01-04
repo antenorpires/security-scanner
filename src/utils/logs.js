@@ -1,3 +1,4 @@
+import { log } from "console";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -11,5 +12,8 @@ export function writeLog(entry) {
 
   const logFile = path.join(logDir, `${new Date().toISOString().slice(0, 10)}.log`);
   const logEntry = `[${new Date().toISOString()}] ${JSON.stringify(entry)}\n`;
+  
   fs.appendFileSync(logFile, logEntry, "utf8");
+  
+  console.log(`[${new Date().toISOString()}] ${JSON.stringify(entry)}`);  
 }

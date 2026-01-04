@@ -1,12 +1,21 @@
 export function sanitizeUrl(input) {
-  try {
-    let url = input.trim();
-    if (url.startsWith("http://") || url.startsWith("https://")) {
-      url = new URL(url).hostname;
+  if (!input || typeof input !== "string") return null;
+
+  let value = input.trim();
+
+  if (value.startsWith("http://") || value.startsWith("https://")) {
+    try {
+      value = new URL(value).hostname;
+    } catch {
+      return null;
     }
-    url = url.replace(/\/+$/, "");
-    return url;
-  } catch {
-    return input;
   }
+
+  const isValid =
+    /^([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}$/.test(value) ||
+    /^(\d{1,3}\.){3}\d{1,3}$/.test(value);
+
+  if (!isValid) return null;
+
+  return value;
 }

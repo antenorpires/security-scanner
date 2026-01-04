@@ -1,16 +1,10 @@
 # syntax = docker/dockerfile:1
-
 ARG NODE_VERSION=22.21.1
 FROM node:${NODE_VERSION}-slim AS base
-
-LABEL fly_launch_runtime="Node.js"
-
 WORKDIR /app
-
 ENV NODE_ENV="production"
 
 FROM base AS build
-
 RUN apt-get update -qq && \
     apt-get install -y --no-install-recommends \
         cmake \
@@ -21,13 +15,10 @@ RUN apt-get update -qq && \
     rm -rf /var/lib/apt/lists/*
 
 COPY package-lock.json package.json ./
-RUN npm install --only=production && \
-    npm ci
-
+RUN npm ci --only=production
 COPY . .
 
 FROM base
-
 RUN apt-get update -qq && \
     apt-get install -y --no-install-recommends \
         curl \
@@ -35,12 +26,11 @@ RUN apt-get update -qq && \
         nmap \
         dnsutils \
         whois \
-        strace \
-        telnet \
-        strace \
-        sudo && \
+        telnet && \
     rm -rf /var/lib/apt/lists/*
-
 COPY --from=build /app /app
+RUN useradd -m scanner && \
+    chown -R scanner:scanner /app
+USER scanner
 EXPOSE 8080
-CMD ["sh", "-c", "npm run start"]
+CMD ["npm", "run", "start"]

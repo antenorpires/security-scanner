@@ -1,7 +1,6 @@
-# version: "3"
 services:
   app:
-    container_name: security-scanner
+    container_name: web-sec-inspector
     build:
       dockerfile: Dockerfile
       context: ./

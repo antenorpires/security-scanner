@@ -108,7 +108,7 @@ nmap -F -Pn -sT --open <target>
 * Enumeração DNS
 * WHOIS
 * DNSSEC
-* Detecção de serviços, SO e scripts de vulnerabilidade
+* Detecção de serviços e SO
 
 Utiliza:
 
@@ -116,7 +116,7 @@ Utiliza:
 host -d <target>
 whois <target>
 dig DNSKEY +dnssec <target>
-nmap -F -Pn -sT --open -sV -A -O --script vuln <target>
+nmap -F -Pn -sT -sV -O <target>
 ```
 
 ---
